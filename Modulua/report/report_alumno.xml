@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+        <!-- Definición del reporte -->
+        <record id="report_alumno" model="ir.actions.report">
+            <field name="name">Txostenak Ikasleak</field>
+            <field name="model">mi.alumnos</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">mi.alumnos.report_alumno_view</field>
+            <field name="report_file">mi.alumnos.report_alumno_view</field>
+            <field name="binding_model_id" ref="model_mi_alumnos"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!-- Plantilla del reporte -->
+        <template id="report_alumno_view">
+            <t t-call="web.basic_layout">
+                <t t-if="docs">
+                    <div class="page">
+                        <h2 style="text-align: center;">Txostenak Ikasleak</h2>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Izena</th>
+                                    <th>Adina</th>
+                                    <th>Kurtsoa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span t-esc="docs.izena"/></td>
+                                    <td><span t-esc="docs.adina"/></td>
+                                    <td><span t-esc="docs.kurtsoa"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

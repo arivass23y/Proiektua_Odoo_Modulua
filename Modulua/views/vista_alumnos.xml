@@ -1,0 +1,79 @@
+<odoo>
+    <!-- Vista Lista -->
+    <record id="view_alumnos_list" model="ir.ui.view">
+        <field name="name">mi.alumnos.list</field>
+        <field name="model">mi.alumnos</field>
+        <field name="arch" type="xml">
+            <list string="Alumnos">
+                <field name="izena"/>
+                <field name="abizena"/>
+                <field name="email"/>
+                <field name="adina"/>
+                <field name="kurtsoa"/>
+                <button name="pdf_exportatu" type="object" string="Exportatu PDF" class="btn-primary"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista Formulario -->
+     <record id="view_alumnos_form" model="ir.ui.view">
+        <field name="name">mi.alumnos.form</field>
+        <field name="model">mi.alumnos</field>
+        <field name="arch" type="xml">
+            <form string="Alumnos">
+                <sheet>
+                    <group>
+                        <field name="izena"/>
+                        <field name="abizena"/>
+                        <field name="email"/>
+                        <field name="adina"/>
+                        <field name="kurtsoa"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción para abrir la vista de Alumnos -->
+    <record id="action_alumnos" model="ir.actions.act_window">
+        <field name="name">Alumnos</field>
+        <field name="res_model">mi.alumnos</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <report
+        id="report_alumno"
+        model="mi.alumnos"
+        string="Txostenak Ikasleak"
+        report_type="qweb-pdf"
+        name="report_alumno_view"
+        file="report_alumno_view"
+        attachment_use="False"/>
+
+    <!-- Menú principal para el módulo de Alumnos -->
+    <menuitem id="menu_alumnos" name="Alumnos" sequence="10"/>
+
+    <!-- Menú secundario dentro de "Alumnos" para la acción de "Alumnos" -->
+    <menuitem id="menu_alumnos_alumnos" name="Alumnos" parent="menu_alumnos" action="action_alumnos" sequence="1"/>
+
+    <!-- Búsqueda avanzada en la vista de lista -->
+    <record id="view_alumno_search" model="ir.ui.view">
+        <field name="name">mi.alumnos.search</field>
+        <field name="model">mi.alumnos</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="izena" string="Izena"/>
+                <field name="abizena" string="Abizena"/>
+                <field name="email" string="Emaila"/>
+                <field name="adina" string="Adina"/>
+                <field name="kurtsoa" string="Kurtsoa"/>
+
+                <!-- Filtros adicionales -->
+                <filter name="filter_name" string="Izenaren arabera" domain="[('izena', 'ilike', self)]"/>
+                <filter name="filter_email" string="Emailaren arabera" domain="[('email', 'ilike', self)]"/>
+                <filter name="filter_adina" string="Adinaren arabera" domain="[('adina', '=', self)]"/>
+                <filter name="filter_kurtsoa" string="Kurtsoaren arabera" domain="[('kurtsoa', 'ilike', self)]"/>
+                </search>
+            </field>
+    </record>
+</odoo>
